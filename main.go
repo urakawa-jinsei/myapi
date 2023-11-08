@@ -7,9 +7,7 @@ import (
 	"net/http"
 
 	_ "github.com/go-sql-driver/mysql"
-	"github.com/urakawa-jinsei/myapi/controllers"
-	"github.com/urakawa-jinsei/myapi/routers"
-	"github.com/urakawa-jinsei/myapi/services"
+	"github.com/urakawa-jinsei/myapi/api"
 )
 
 var (
@@ -29,10 +27,7 @@ func main() {
 		return
 	}
 
-	ser := services.NewMyAppService(db)
-	con := controllers.NewMyAppController(ser)
-
-	r := routers.NewRouter(con)
+	r := api.NewRouter(db)
 	log.Println("server start at port 8080")
 	log.Fatal(http.ListenAndServe(":8080", r))
 }
